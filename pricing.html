@@ -16,7 +16,7 @@
     font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
     line-height: 1.6; padding: 2rem;
   }
-  .container { max-width: 900px; margin: 0 auto; }
+  .container { max-width: 1000px; margin: 0 auto; }
   .doc-header {
     text-align: center; padding: 3rem 0 2rem;
     border-bottom: 1px solid var(--border); margin-bottom: 3rem;
@@ -34,124 +34,136 @@
   }
   .doc-subtitle { color: var(--dim); font-size: 1.1rem; margin-top: 0.5rem; }
 
-  /* Intro */
-  .intro {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 2rem; margin-bottom: 3rem;
+  .section-title {
+    font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
   }
-  .intro p { color: var(--dim); margin-bottom: 1rem; }
-  .intro p:last-child { margin-bottom: 0; }
-  .highlight { color: var(--accent); font-weight: 600; }
+  .section-desc { color: var(--dim); font-size: 0.95rem; margin-bottom: 2rem; }
 
-  /* Rate card */
-  .rate-card {
-    background: var(--surface); border: 1px solid var(--accent);
-    border-radius: 16px; padding: 2.5rem; text-align: center;
-    margin-bottom: 3rem; position: relative; overflow: hidden;
+  /* SOC Tiers */
+  .tier-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-bottom: 3rem;
   }
-  .rate-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, var(--glow), transparent 80%);
+  .tier-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem; position: relative;
+    transition: all 0.3s; display: flex; flex-direction: column;
   }
-  .rate-card > * { position: relative; }
-  .rate-badge {
+  .tier-card.featured {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, var(--surface), rgba(255,59,59,0.03));
+    box-shadow: 0 0 40px rgba(255,59,59,0.08);
+    transform: scale(1.03);
+  }
+  .tier-card:hover { transform: translateY(-4px); }
+  .tier-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+  .tier-badge {
     font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-    background: var(--accent); color: #fff; padding: 0.3rem 1rem;
-    border-radius: 50px; display: inline-block; letter-spacing: 0.1em;
-    text-transform: uppercase; margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; padding: 0.3rem 1rem; border-radius: 50px;
+    display: inline-block; letter-spacing: 0.1em; text-transform: uppercase;
+    align-self: flex-start; margin-bottom: 1rem;
   }
-  .rate-number {
-    font-size: 5rem; font-weight: 900; line-height: 1;
+  .tier-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .tier-desc { color: var(--dim); font-size: 0.85rem; margin-bottom: 1.2rem; }
+  .tier-price {
+    font-size: 2.4rem; font-weight: 900; margin-bottom: 0.2rem;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .rate-unit { color: var(--dim); font-size: 1.2rem; }
-
-  /* Package grid */
-  .package-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    gap: 1.5rem; margin-bottom: 3rem;
+  .tier-interval { color: var(--dim); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .tier-features { list-style: none; flex: 1; margin-bottom: 1.5rem; }
+  .tier-features li {
+    color: var(--dim); font-size: 0.88rem; padding: 0.4rem 0;
+    padding-left: 1.4rem; position: relative; line-height: 1.4;
   }
-  .package {
+  .tier-features li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.7rem;
+  }
+  .tier-features li.strong { color: var(--text); font-weight: 500; }
+  .tier-features li.strong::before { content: '◆'; color: var(--accent2); }
+
+  /* Add-ons */
+  .addon-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .addon-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem; position: relative;
+    border-radius: 12px; padding: 1.5rem;
     transition: all 0.3s;
   }
-  .package.featured {
-    border-color: var(--accent);
-    box-shadow: 0 0 40px rgba(255,59,59,0.08);
+  .addon-card:hover { border-color: var(--accent); }
+  .addon-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+  .addon-name { font-weight: 700; font-size: 1rem; }
+  .addon-price {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+    color: var(--accent); font-weight: 600; white-space: nowrap;
   }
-  .package:hover { transform: translateY(-4px); }
-  .package h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
-  .package .scope { color: var(--dim); font-size: 0.85rem; margin-bottom: 1rem; }
-  .package .price {
-    font-size: 2rem; font-weight: 800; margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .addon-desc { color: var(--dim); font-size: 0.85rem; }
+
+  /* Advisory */
+  .advisory-section {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem; margin-bottom: 3rem;
   }
-  .package ul { list-style: none; margin-bottom: 1.5rem; }
-  .package ul li {
-    color: var(--dim); font-size: 0.9rem; padding: 0.3rem 0;
-    padding-left: 1.2rem; position: relative;
+  .advisory-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 1.5rem;
   }
-  .package ul li::before {
-    content: '→'; position: absolute; left: 0;
-    color: var(--accent); font-family: 'JetBrains Mono', monospace;
+  .adv-card {
+    text-align: center; padding: 1.5rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px;
   }
-  .package .duration {
+  .adv-label {
     font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
     color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
   }
+  .adv-price { font-size: 1.8rem; font-weight: 800; }
+  .adv-detail { color: var(--dim); font-size: 0.85rem; margin-top: 0.5rem; }
 
-  /* Retainer */
-  .retainer {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem; margin-bottom: 3rem;
+  /* Comparison */
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 3rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
   }
-  .retainer h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
-  .retainer-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 1.5rem;
+  .compare-table th {
+    padding: 1rem 1.2rem; font-size: 0.8rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--dim); text-align: left;
+    border-bottom: 1px solid var(--border); background: var(--surface2);
+    font-weight: 600;
   }
-  .retainer-tier { text-align: center; padding: 1.5rem; }
-  .retainer-tier .tier-name {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
-    color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
+  .compare-table td {
+    padding: 0.9rem 1.2rem; font-size: 0.9rem;
+    border-bottom: 1px solid var(--border); color: var(--dim);
   }
-  .retainer-tier .tier-price {
-    font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;
-  }
-  .retainer-tier .tier-desc { color: var(--dim); font-size: 0.85rem; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--accent2); font-weight: 700; }
+  .compare-table .cross { color: #555; }
 
-  /* A la carte */
-  .alacarte { margin-bottom: 3rem; }
-  .alacarte h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
-  .alacarte-table {
-    width: 100%; border-collapse: collapse;
+  .highlight { color: var(--accent); font-weight: 600; }
+  .note {
+    background: rgba(255,59,59,0.05); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 3rem;
+    font-size: 0.88rem; color: var(--dim);
   }
-  .alacarte-table td {
-    padding: 0.9rem 1rem; border-bottom: 1px solid var(--border);
-    font-size: 0.95rem;
-  }
-  .alacarte-table td:first-child { color: var(--text); font-weight: 500; }
-  .alacarte-table td:last-child {
-    text-align: right; font-family: 'JetBrains Mono', monospace;
-    color: var(--accent2); font-size: 0.9rem; white-space: nowrap;
-  }
-  .alacarte-table tr:hover td { background: var(--surface2); }
-
-  /* Footer */
   .doc-footer {
     text-align: center; padding: 2rem 0; color: var(--dim);
     font-size: 0.8rem; border-top: 1px solid var(--border);
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
+    .tier-grid, .advisory-grid { grid-template-columns: 1fr; }
+    .addon-grid { grid-template-columns: 1fr; }
+    .tier-card.featured { transform: none; }
+    .tier-card.featured:hover { transform: translateY(-4px); }
     body { padding: 1rem; }
-    .rate-number { font-size: 3.5rem; }
   }
 </style>
 </head>
@@ -159,176 +171,231 @@
 <div class="container">
 
 <div class="doc-header">
-  <div class="doc-label">Internal Document</div>
-  <h1 class="doc-title">Pricing Model</h1>
+  <div class="doc-label">Pricing</div>
+  <h1 class="doc-title">Managed SOC Pricing</h1>
   <p class="doc-subtitle">SOCPHYRE · Offensive-Grade Defense</p>
 </div>
 
-<div class="intro">
-  <p>
-    <span class="highlight">You're a solo operator with a rare edge:</span>
-    real red team and pentesting experience. You're not competing with
-    the €400 scanners on Fiverr, and you're not charging enterprise
-    consulting-firm rates yet. This is the sweet spot — boutique
-    quality at a fair price that builds your portfolio and reputation.
-  </p>
-  <p>
-    <span class="highlight">The strategy:</span> price competitively to
-    win early clients, deliver outstanding work, then raise rates as
-    demand and case studies accumulate. Every engagement should feel
-    like a bargain compared to larger firms, with better quality
-    because you bring real attacker perspective.
-  </p>
+<div class="note">
+  <span class="highlight">The model:</span> fixed monthly SOC retainers based on your environment size and log volume. No long-term contracts — month-to-month, cancel anytime. Pricing scales with your environment, not a VC's revenue target. Every tier includes the same operator who spent years breaking into networks. <span class="highlight">No junior analysts. No ticket queues. No hand-offs.</span>
 </div>
 
-<div class="rate-card">
-  <div class="rate-badge">Base Day Rate</div>
-  <div class="rate-number">€1,100</div>
-  <div class="rate-unit">/ day · excl. VAT</div>
-  <p style="color:var(--dim); margin-top:1rem; max-width:400px; margin-inline:auto;">
-    Market range for quality EU pentesting is €1,200–€1,800/day.
-    This positions you as competitive while leaving room to grow.
-    Complex engagements (red team, ICS) rate at €1,400/day.
-  </p>
-</div>
+<!-- SOC MANAGED TIERS -->
+<h2 class="section-title">🛡️ Managed SOC</h2>
+<p class="section-desc">
+  Full-spectrum detection, triage, and response for your environment. Log ingestion, alert management, threat hunting, and monthly reporting — all included.
+</p>
 
-<h2 style="font-size:1.5rem; font-weight:700; margin-bottom:1.5rem;">Fixed-Price Packages</h2>
-<div class="package-grid">
-  <div class="package">
-    <h3>External Pentest</h3>
-    <div class="scope">Internet-facing infrastructure</div>
-    <div class="price">€3,500 – €5,500</div>
-    <ul>
-      <li>Full port scanning & service enumeration</li>
-      <li>Web app, VPN, email, DNS review</li>
-      <li>Cloud exposure (S3, Azure blobs, etc.)</li>
-      <li>Manual exploitation & PoC</li>
-      <li>Executive + technical report</li>
+<div class="tier-grid">
+  <div class="tier-card">
+    <span class="tier-badge">Starter</span>
+    <div class="tier-name">SOC Essentials</div>
+    <div class="tier-desc">For small teams with 1–2 log sources who need eyes on their environment without the overhead.</div>
+    <div class="tier-price">€2,500</div>
+    <div class="tier-interval">/ month · excl. VAT</div>
+    <ul class="tier-features">
+      <li class="strong">Up to 2 log sources (firewall + EDR or identity)</li>
+      <li class="strong">Daily alert triage & investigation</li>
+      <li class="strong">Critical alert escalation (email + Signal)</li>
+      <li>Weekly digest of activity</li>
+      <li>Monthly executive summary report</li>
+      <li>Up to 50 endpoints covered</li>
+      <li>Business hours response (08:00–18:00 CET)</li>
     </ul>
-    <div class="duration">3–5 days</div>
   </div>
 
-  <div class="package featured">
-    <h3>Web Application Pentest</h3>
-    <div class="scope">Single web app or API</div>
-    <div class="price">€4,000 – €8,000</div>
-    <ul>
-      <li>OWASP Top 10 + business logic</li>
-      <li>Auth bypass, privilege escalation</li>
-      <li>API misconfiguration & injection</li>
-      <li>Authenticated + unauthenticated testing</li>
-      <li>Remediation guidance per finding</li>
+  <div class="tier-card featured">
+    <span class="tier-badge">Most Popular</span>
+    <div class="tier-name">SOC Professional</div>
+    <div class="tier-desc">For growing orgs with multiple data sources who need comprehensive coverage and faster response.</div>
+    <div class="tier-price">€4,500</div>
+    <div class="tier-interval">/ month · excl. VAT</div>
+    <ul class="tier-features">
+      <li class="strong">Up to 5 log sources</li>
+      <li class="strong">Extended-hours monitoring (06:00–00:00 CET)</li>
+      <li class="strong">Incident response standby</li>
+      <li class="strong">Proactive threat hunting (monthly)</li>
+      <li>Custom detection rule development</li>
+      <li>Weekly operations call</li>
+      <li>Monthly full SOC report + compliance evidence pack</li>
+      <li>Up to 200 endpoints covered</li>
+      <li>Sentinel / SIEM health monitoring</li>
     </ul>
-    <div class="duration">3–7 days</div>
   </div>
 
-  <div class="package">
-    <h3>Internal Network Pentest</h3>
-    <div class="scope">Post-breach simulation</div>
-    <div class="price">€5,500 – €9,000</div>
-    <ul>
-      <li>Active Directory attack paths</li>
-      <li>Lateral movement & privilege escalation</li>
-      <li>Network segmentation testing</li>
-      <li>Credential harvesting simulation</li>
-      <li>Domain dominance walkthrough</li>
+  <div class="tier-card">
+    <span class="tier-badge">Enterprise</span>
+    <div class="tier-name">SOC Complete</div>
+    <div class="tier-desc">For organizations that treat security as critical infrastructure. Full coverage, full response.</div>
+    <div class="tier-price">€8,000</div>
+    <div class="tier-interval">/ month · excl. VAT</div>
+    <ul class="tier-features">
+      <li class="strong">Unlimited log sources</li>
+      <li class="strong">24/7 monitoring & response</li>
+      <li class="strong">Immediate incident response activation</li>
+      <li class="strong">Bi-weekly threat hunting</li>
+      <li class="strong">vCISO advisory (4 hrs/month included)</li>
+      <li>Custom playbook development</li>
+      <li>Quarterly tabletop exercises</li>
+      <li>Board-ready quarterly reports</li>
+      <li>Unlimited endpoints</li>
+      <li>Direct escalation line (Signal/phone)</li>
     </ul>
-    <div class="duration">5–7 days</div>
-  </div>
-
-  <div class="package">
-    <h3>Vulnerability Assessment</h3>
-    <div class="scope">Infrastructure + application scan</div>
-    <div class="price">€2,000 – €4,000</div>
-    <ul>
-      <li>Automated + manual hybrid approach</li>
-      <li>CVSS-scored findings, prioritized</li>
-      <li>False positive triage</li>
-      <li>Management summary</li>
-      <li>Suitable for compliance evidence</li>
-    </ul>
-    <div class="duration">2–4 days</div>
-  </div>
-
-  <div class="package">
-    <h3>Phishing Simulation</h3>
-    <div class="scope">Awareness campaign</div>
-    <div class="price">€1,500 – €3,000</div>
-    <ul>
-      <li>Custom scenario design (2–3 templates)</li>
-      <li>Targeted sending to your staff</li>
-      <li>Click & credential capture tracking</li>
-      <li>Results dashboard</li>
-      <li>Debrief & training recommendations</li>
-    </ul>
-    <div class="duration">1–3 days</div>
-  </div>
-
-  <div class="package">
-    <h3>Red Team Operation</h3>
-    <div class="scope">Full kill-chain simulation</div>
-    <div class="price">€12,000 – €25,000+</div>
-    <ul>
-      <li>Custom threat actor profile</li>
-      <li>Recon, phishing, initial access</li>
-      <li>Persistence & C2 infrastructure</li>
-      <li>Lateral movement & objective capture</li>
-      <li>Detection gap analysis & blue team debrief</li>
-    </ul>
-    <div class="duration">10–20 days</div>
   </div>
 </div>
 
-<div class="alacarte">
-  <h3>À la Carte Services</h3>
-  <table class="alacarte-table">
-    <tr><td>Security Architecture Review</td><td>€2,500 – €5,000</td></tr>
-    <tr><td>Compliance Gap Analysis (ISO 27001 / NIS2 / CYFUN)</td><td>€3,000 – €6,000</td></tr>
-    <tr><td>Policy & Procedure Generation</td><td>€1,500 – €3,000</td></tr>
-    <tr><td>Incident Response Playbook Development</td><td>€1,500 – €3,500</td></tr>
-    <tr><td>Security Awareness Training (half-day)</td><td>€800 – €1,500</td></tr>
-    <tr><td>Technical Security Training (full-day)</td><td>€1,500 – €2,500</td></tr>
-    <tr><td>Remediation Retest</td><td>€1,500 – €3,000</td></tr>
-    <tr><td>Cloud Security Review (AWS/Azure/GCP)</td><td>€3,000 – €7,000</td></tr>
-    <tr><td>Mobile App Pentest (iOS + Android)</td><td>€3,500 – €6,000</td></tr>
-    <tr><td>Emergency Incident Support (per day)</td><td>€1,500</td></tr>
-  </table>
+<!-- ADD-ONS -->
+<h2 class="section-title">🔧 Add-Ons</h2>
+<p class="section-desc">
+  Bolt these onto any SOC tier. Mix and match to fit your exact needs.
+</p>
+
+<div class="addon-grid">
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">24/7 Upgrade</span>
+      <span class="addon-price">+€1,500/mo</span>
+    </div>
+    <div class="addon-desc">Extend any tier to full around-the-clock coverage. Nights, weekends, holidays — covered.</div>
+  </div>
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">Additional Log Source</span>
+      <span class="addon-price">+€300/mo each</span>
+    </div>
+    <div class="addon-desc">Add cloud platforms, SaaS apps, DNS, VPN, or custom application logs beyond your tier limit.</div>
+  </div>
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">Sentinel Full Management</span>
+      <span class="addon-price">+€1,000/mo</span>
+    </div>
+    <div class="addon-desc">End-to-end Azure Sentinel ownership: connector health, KQL rule development, workbook creation, cost optimization.</div>
+  </div>
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">Compliance Evidence Pack</span>
+      <span class="addon-price">+€500/mo</span>
+    </div>
+    <div class="addon-desc">Audit-ready documentation mapped to ISO 27001, NIS2, or CYFUN. Control-by-control evidence with your SOC data.</div>
+  </div>
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">Phishing Simulation Campaign</span>
+      <span class="addon-price">+€300/mo</span>
+    </div>
+    <div class="addon-desc">Monthly simulated phishing to your team. Track click rates, repeat offenders, and improvement over time.</div>
+  </div>
+  <div class="addon-card">
+    <div class="addon-header">
+      <span class="addon-name">Dark Web Monitoring</span>
+      <span class="addon-price">+€400/mo</span>
+    </div>
+    <div class="addon-desc">Monitor for your domains, executive emails, and credentials in breach databases and dark web markets.</div>
+  </div>
 </div>
 
-<div class="retainer">
-  <h3>Monthly Retainer Packages</h3>
-  <p style="color:var(--dim); margin-bottom:1.5rem; font-size:0.95rem;">
-    For clients who need ongoing security support — from ad-hoc
-    advisory to embedded virtual CISO services.
+<!-- ADVISORY -->
+<div class="advisory-section">
+  <h2 class="section-title">🎯 Advisory & Consulting</h2>
+  <p style="color:var(--dim); font-size:0.95rem; margin-bottom:1rem;">
+    For clients who don't need full SOC coverage yet but want expert guidance on building their security posture. Also available as bolt-on to any SOC tier.
   </p>
-  <div class="retainer-grid">
-    <div class="retainer-tier">
-      <div class="tier-name">Essential</div>
-      <div class="tier-price">€1,500<span style="font-size:0.9rem;color:var(--dim);">/mo</span></div>
-      <div class="tier-desc">
-        8 hours advisory · quarterly vuln scan review · email/chat support · security newsletter
+  <div class="advisory-grid">
+    <div class="adv-card">
+      <div class="adv-label">Advisory</div>
+      <div class="adv-price">€1,500<span style="font-size:0.9rem;color:var(--dim);">/mo</span></div>
+      <div class="adv-detail">
+        8 hrs/month · security strategy calls · vendor review · quarterly posture assessment · email/chat support
       </div>
     </div>
-    <div class="retainer-tier">
-      <div class="tier-name">Professional</div>
-      <div class="tier-price">€3,000<span style="font-size:0.9rem;color:var(--dim);">/mo</span></div>
-      <div class="tier-desc">
-        16 hours · monthly review call · incident response standby · compliance tracking · quarterly pentest lite
+    <div class="adv-card">
+      <div class="adv-label">vCISO</div>
+      <div class="adv-price">€3,500<span style="font-size:0.9rem;color:var(--dim);">/mo</span></div>
+      <div class="adv-detail">
+        16 hrs/month · board reporting · program roadmap · vendor management · compliance strategy · policy development
       </div>
     </div>
-    <div class="retainer-tier">
-      <div class="tier-name">vCISO</div>
-      <div class="tier-price">€5,000<span style="font-size:0.9rem;color:var(--dim);">/mo</span></div>
-      <div class="tier-desc">
-        32 hours · security strategy · board reporting · vendor management · program roadmap · IR retainership
+    <div class="adv-card">
+      <div class="adv-label">Project</div>
+      <div class="adv-price">€1,200<span style="font-size:0.9rem;color:var(--dim);">/day</span></div>
+      <div class="adv-detail">
+        One-off engagements: architecture review, compliance gap analysis, IR playbook development, tool evaluation
       </div>
     </div>
   </div>
 </div>
+
+<!-- COMPARISON -->
+<h2 class="section-title">📊 SOC Cost Comparison</h2>
+<p class="section-desc">
+  What you're actually comparing when you look at alternatives.
+</p>
+
+<table class="compare-table">
+  <thead>
+    <tr>
+      <th>Capability</th>
+      <th>In-House SOC</th>
+      <th>MSSP (Big Vendor)</th>
+      <th>SOCPHYRE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Annual cost (small org)</td>
+      <td>€180,000+</td>
+      <td>€60,000–€120,000</td>
+      <td class="check">€30,000</td>
+    </tr>
+    <tr>
+      <td>Setup time</td>
+      <td>6–12 months</td>
+      <td>1–3 months</td>
+      <td class="check">48 hours</td>
+    </tr>
+    <tr>
+      <td>Analyst experience</td>
+      <td>Varies (junior-heavy)</td>
+      <td>Mixed (tiered teams)</td>
+      <td class="check">Red team operator → defender</td>
+    </tr>
+    <tr>
+      <td>False positive rate</td>
+      <td>High (tuning takes time)</td>
+      <td>Medium–High (volume-based)</td>
+      <td class="check">Low (manual tuning by an attacker)</td>
+    </tr>
+    <tr>
+      <td>Incident response</td>
+      <td>In-team (if staffed)</td>
+      <td>Extra contract required</td>
+      <td class="check">Included</td>
+    </tr>
+    <tr>
+      <td>Custom detection rules</td>
+      <td>Yes (if skilled)</td>
+      <td>Rare (cookie-cutter)</td>
+      <td class="check">Yes — built for your environment</td>
+    </tr>
+    <tr>
+      <td>Kill-chain perspective</td>
+      <td class="cross">Rare</td>
+      <td class="cross">Almost never</td>
+      <td class="check">Core to the approach</td>
+    </tr>
+    <tr>
+      <td>Vendor lock-in</td>
+      <td>Tooling + staffing</td>
+      <td>3-year contracts</td>
+      <td class="check">Month-to-month</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="doc-footer">
   <p>SOCPHYRE · Offensive-Grade Defense · Belgium / EU</p>
-  <p style="margin-top:0.3rem;">Prices exclude VAT. Valid Q2–Q3 2026. Subject to scope confirmation.</p>
+  <p style="margin-top:0.3rem;">All prices exclude VAT. Month-to-month — no long-term obligation. Pause or cancel anytime.</p>
 </div>
 
 </div>
